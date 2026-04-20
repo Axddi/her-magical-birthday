@@ -18,15 +18,15 @@ export const Route = createFileRoute("/memories")({
 
 // TODO: Replace each `src` with a real photo of you two!
 const photos = [
-  { id: 1, src: "https://picsum.photos/seed/love1/600/800", caption: "The day everything changed" },
-  { id: 2, src: "https://picsum.photos/seed/love2/600/600", caption: "Your laugh, my favorite sound" },
-  { id: 3, src: "https://picsum.photos/seed/love3/600/900", caption: "Sunsets are better with you" },
-  { id: 4, src: "https://picsum.photos/seed/love4/600/700", caption: "Coffee dates forever" },
-  { id: 5, src: "https://picsum.photos/seed/love5/600/800", caption: "Adventures with my muse" },
-  { id: 6, src: "https://picsum.photos/seed/love6/600/650", caption: "That one rainy afternoon" },
-  { id: 7, src: "https://picsum.photos/seed/love7/600/850", caption: "Dancing in the kitchen" },
-  { id: 8, src: "https://picsum.photos/seed/love8/600/750", caption: "Stars couldn't compare" },
-  { id: 9, src: "https://picsum.photos/seed/love9/600/700", caption: "My favorite human" },
+  { id: 1, src: "/ivory.jpeg", caption: "To Dripping Together always" },
+  { id: 2, src: "/teddy.jpeg", caption: "To buying you cute lil things" },
+  { id: 3, src: "/kiss.jpeg", caption: "To kissing you always" },
+  { id: 4, src: "/date.jpeg", caption: "To going to dates together" },
+  { id: 5, src: "/walk.jpeg", caption: "To walking by your side always" },
+  { id: 6, src: "/shoulder.jpeg", caption: "To rely on you always" },
+  { id: 7, src: "/sunset.jpeg", caption: "To watching sunsets with you" },
+  { id: 8, src: "/hug.jpeg", caption: "To keep you close always" },
+  { id: 9, src: "/tattoo.jpeg", caption: "My favorite huma(ass)n" },
 ];
 
 function Memories() {

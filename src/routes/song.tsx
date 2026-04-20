@@ -55,16 +55,16 @@ function SongPage() {
           className="font-cursive text-2xl"
           style={{ color: "var(--rose-deep)" }}
         >
-          our song since {SITE_CONFIG.songSince}
+          Here's a song that reminds me of you
         </motion.p>
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           className="font-script text-shimmer text-6xl md:text-8xl mt-2"
         >
-          {SITE_CONFIG.songTitle}
+          Pal Pal
         </motion.h1>
-        <p className="font-serif-romantic italic mt-1 text-lg">— {SITE_CONFIG.songArtist}</p>
+        <p className="font-serif-romantic italic mt-1 text-lg">— By Talwinder</p>
       </header>
 
       <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
@@ -178,9 +178,5 @@ function NoteWhenSilent() {
     return () => clearTimeout(t);
   }, [isReady]);
   if (!show) return null;
-  return (
-    <p className="text-center mt-10 font-cursive text-lg" style={{ color: "var(--secondary)" }}>
-      🎵 Drop your audio file at <code className="px-2 py-1 rounded bg-white/60">public/audio/our-song.mp3</code> to bring this page to life.
-    </p>
-  );
+  return
 }

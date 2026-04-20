@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { PageWrap } from "@/components/PageWrap";
 import { ParticlesBg } from "@/components/ParticlesBg";
 import { SITE_CONFIG } from "@/lib/config";
@@ -17,38 +17,65 @@ export const Route = createFileRoute("/letter")({
   component: Letter,
 });
 
-const LETTER_TEXT = `My dearest ${SITE_CONFIG.girlfriendName},
+const LETTER_TEXT = `My dearest Iram,
 
-If I had a flower for every time I thought of you, I could walk through my garden forever. You are the soft morning light, the song stuck in my head, the warmth of every good day.
+Somewhere between all the chaos and calm, between the laughter and the silent fights, we built something that quietly became my whole world.
 
-Thank you for choosing me, for laughing at my worst jokes, for being the most extraordinary thing in my ordinary life. I promise to love you louder, deeper, and sillier with every birthday that comes.
+We’ve seen days that tested us, and nights that held us together — and somehow, through everything, we stayed. Every battle we conquered wasn’t just a moment… it was a step, a milestone, a story only we understand.
 
-Happy birthday, my whole heart. The world is luckier because you're in it — and so am I.
+And now look at you — 21 on 21.
+Not just growing older, but becoming someone so beautiful, so strong, so full of life… a woman in the making, and already someone I admire more than I can ever say.
 
+You didn’t just enter my life — you changed its colours.
+From something quiet and dull…
+to something alive.
+Red, pink, green — every shade of happiness I didn’t even know I was missing.
+You turned ordinary days into celebrations, and my world into something that feels like confetti in slow motion.
+
+I love you — in ways words will always fall short of.
+To the moon and back, and still not enough.
+
+On your birthday, I don’t just wish you happiness —
+I wish you a life filled with success, with luxury, with peace that stays.
+I wish for every dream you carry to find its way to you.
+And for every step you take forward… I hope I’m right there, beside you, always.
+
+Happy Birthday, my Iru.
+You are, and always will be, my favourite part of this life.
+
+I love you.
 Forever yours,
-💕`;
+Aadi💕`;
 
 function Letter() {
   const [opened, setOpened] = useState(false);
   const [typed, setTyped] = useState("");
+  const particles = useMemo(() => <ParticlesBg variant="petals" />, []);
+useEffect(() => {
+  if (!opened) return;
 
-  useEffect(() => {
-    if (!opened) return;
-    let i = 0;
-    const id = setInterval(() => {
-      i++;
-      setTyped(LETTER_TEXT.slice(0, i));
-      if (i >= LETTER_TEXT.length) clearInterval(id);
-    }, 28);
-    return () => clearInterval(id);
-  }, [opened]);
+  let i = 0;
+  let rafId: number;
+
+  const type = () => {
+    i++;
+    setTyped(LETTER_TEXT.slice(0, i));
+
+    if (i < LETTER_TEXT.length) {
+      rafId = requestAnimationFrame(type);
+    }
+  };
+
+  rafId = requestAnimationFrame(type);
+
+  return () => cancelAnimationFrame(rafId);
+}, [opened]);
 
   return (
     <PageWrap>
       <div className="absolute inset-0 -z-10">
-        <ParticlesBg variant="petals" />
+        {particles}
       </div>
-
       <header className="text-center mb-10">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
