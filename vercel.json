@@ -1,6 +1,5 @@
 {
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/.*", "dest": "/" }
-  ]
+  "buildCommand": "pnpm run build",
+  "outputDirectory": "dist/client",
+  "framework": null
 }
