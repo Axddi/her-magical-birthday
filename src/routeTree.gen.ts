@@ -9,8 +9,32 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WishesRouteImport } from './routes/wishes'
+import { Route as SongRouteImport } from './routes/song'
+import { Route as MemoriesRouteImport } from './routes/memories'
+import { Route as LetterRouteImport } from './routes/letter'
 import { Route as IndexRouteImport } from './routes/index'
 
+const WishesRoute = WishesRouteImport.update({
+  id: '/wishes',
+  path: '/wishes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SongRoute = SongRouteImport.update({
+  id: '/song',
+  path: '/song',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MemoriesRoute = MemoriesRouteImport.update({
+  id: '/memories',
+  path: '/memories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LetterRoute = LetterRouteImport.update({
+  id: '/letter',
+  path: '/letter',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +43,72 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/letter': typeof LetterRoute
+  '/memories': typeof MemoriesRoute
+  '/song': typeof SongRoute
+  '/wishes': typeof WishesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/letter': typeof LetterRoute
+  '/memories': typeof MemoriesRoute
+  '/song': typeof SongRoute
+  '/wishes': typeof WishesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/letter': typeof LetterRoute
+  '/memories': typeof MemoriesRoute
+  '/song': typeof SongRoute
+  '/wishes': typeof WishesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/letter' | '/memories' | '/song' | '/wishes'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/letter' | '/memories' | '/song' | '/wishes'
+  id: '__root__' | '/' | '/letter' | '/memories' | '/song' | '/wishes'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LetterRoute: typeof LetterRoute
+  MemoriesRoute: typeof MemoriesRoute
+  SongRoute: typeof SongRoute
+  WishesRoute: typeof WishesRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/wishes': {
+      id: '/wishes'
+      path: '/wishes'
+      fullPath: '/wishes'
+      preLoaderRoute: typeof WishesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/song': {
+      id: '/song'
+      path: '/song'
+      fullPath: '/song'
+      preLoaderRoute: typeof SongRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/memories': {
+      id: '/memories'
+      path: '/memories'
+      fullPath: '/memories'
+      preLoaderRoute: typeof MemoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/letter': {
+      id: '/letter'
+      path: '/letter'
+      fullPath: '/letter'
+      preLoaderRoute: typeof LetterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,7 +121,20 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LetterRoute: LetterRoute,
+  MemoriesRoute: MemoriesRoute,
+  SongRoute: SongRoute,
+  WishesRoute: WishesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
